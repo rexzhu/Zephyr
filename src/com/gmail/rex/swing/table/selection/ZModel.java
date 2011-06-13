@@ -6,18 +6,15 @@ package com.gmail.rex.swing.table.selection;
  * @since 10/June/2011
  */
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.JTable;
 
 public class ZModel {
-	
-	private HashMap<ZCell, State> zMapping = new HashMap<ZCell, State>();
-	
-	private JTable table = null;
-	private ZTable tableSelector = null;
 	
 	public final static int ROW_HEADER_ID = Integer.MAX_VALUE;
 	public final static int COLUMN_HEADER_ID = Integer.MAX_VALUE;
@@ -80,7 +77,10 @@ public class ZModel {
 			
 			//zMapping.put(new ZCell(ROW_HEADER_ID, column), state );
 			updateHeaderCell();
+			
 			repaintUI();
+			
+			fireSelectionChanged();
 		}		
 	}
 	
@@ -96,7 +96,10 @@ public class ZModel {
 			}			
 			//zMapping.put(new ZCell(row, COLUMN_HEADER_ID), state );
 			updateHeaderCell();
+			
 			repaintUI();
+			
+			fireSelectionChanged();
 		}
 		
 	}
@@ -125,10 +128,19 @@ public class ZModel {
 			updateHeaderCell();
 			
 			repaintUI();
+			
+			fireSelectionChanged();
 		}
 		
 	}
 	
+	private void fireSelectionChanged() {
+		for(IModelListener lsn : listeners) {
+			lsn.selectionChanged();
+		}
+		
+	}
+
 	private void updateHeaderCell() {
 		int rowCount = table.getRowCount();
 		int columnCount = table.getColumnCount();
@@ -237,4 +249,33 @@ public class ZModel {
 		}
 		return true;
 	}
+
+	public List<ZCell> getCells(State state) {
+		ArrayList<ZCell> list = new ArrayList<ZCell>();
+		Iterator<Entry<ZCell, State>> iter = zMapping.entrySet().iterator();
+		while( iter.hasNext() ) {
+			Entry<ZCell, State> entry = iter.next();
+			if( entry.getValue().equals(state) ) {
+				list.add( entry.getKey() );
+			}
+		}
+		return list;
+	}
+	
+	public void addModelListener(IModelListener lsn ) {
+		listeners.add(lsn);
+	}
+	
+	public void removeModelListener(IModelListener lsn ) {
+		listeners.remove(lsn);
+	}
+	
+	private HashMap<ZCell, State> zMapping = new HashMap<ZCell, State>();
+	
+	private JTable table = null;
+	private ZTable tableSelector = null;
+	
+	private List<IModelListener> listeners = new ArrayList<IModelListener>();
+	
+
 }

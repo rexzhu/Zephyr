@@ -42,6 +42,7 @@ public class ZCellControl extends JPanel implements TableCellRenderer, TableCell
 		box.addMouseListener(new MouseAdapter() {
 			public void mouseReleased(MouseEvent e) {
 				onSelect();
+				tableSelector.getTable().removeEditor();
 			}
 		});
 		origin = new JPanel();

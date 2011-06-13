@@ -41,4 +41,10 @@ public class ZCell {
 	public String toString() {
 		return row + "-" + column;
 	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return new ZCell(row, column);
+	}
+	
+	
 }
