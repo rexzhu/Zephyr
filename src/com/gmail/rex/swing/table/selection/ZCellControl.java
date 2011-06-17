@@ -15,6 +15,7 @@ import java.util.EventObject;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -109,25 +110,30 @@ public class ZCellControl extends JPanel implements TableCellRenderer, TableCell
 		if( row == -1 ) {
 			row = ZModel.COLUMN_HEADER_ID;
 		}
-		State state = tableSelector.getModel().getState(row, column);
 		
-		box.setText(value.toString());
-		box.setFont(table.getFont());		
+		ISelectionPolicy policy = tableSelector.getSelectionPolicy();
+		if( policy != null && policy.isSelectEnable(tableSelector, row, column ) ) {
+			State state = tableSelector.getModel().getState(row, column);
+			
+			box.setText(value.toString());
+			box.setFont(table.getFont());		
 
-		if( State.PART.equals(state)) {
-			box.setBackground(Color.LIGHT_GRAY);
-		} else {
-			box.setBackground(UIManager.getColor("TableHeader.background"));
+			if( State.PART.equals(state)) {
+				box.setBackground(Color.LIGHT_GRAY);
+			} else {
+				box.setBackground(UIManager.getColor("TableHeader.background"));
+			}
+			box.setForeground(UIManager.getColor("TableHeader.foreground"));
+			
+			box.setOpaque(true);
+			box.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+			box.setBorderPainted(true);
+			
+			box.setSelected( State.NONE.equals(state) ? false : true );
+
+			return box;
 		}
-		box.setForeground(UIManager.getColor("TableHeader.foreground"));
-		
-		box.setOpaque(true);
-		box.setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-		box.setBorderPainted(true);
-		
-		box.setSelected( State.NONE.equals(state) ? false : true );
-
-		return box;
+		return new JLabel( value.toString() );
 
 	}
 

@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.ListCellRenderer;
@@ -42,6 +43,7 @@ public class ZRowHeader extends JList {
 	public void setRowHeaders( Object[] headers ) {
 		if( headers != null ) {
 			rowHeaders = headers;
+			calculateWidth();
 		}
 	}
 	
@@ -66,17 +68,24 @@ public class ZRowHeader extends JList {
 		    	  return table.getRowCount() ; 
 		      }
 		    public Object getElementAt(int index) {
-				if (table == null) {
+				if (table == null || rowHeaders == null ) {
 					return "";
 				}
 				
+				if( rowHeaders.length == 0 ) {
+					return "";
+				}
 				if( index < 0 || index > rowHeaders.length ) {
 					return "";
 				}
 				return rowHeaders[index];
 			}
 	    });    
-	    setFixedCellWidth(50);
+	    
+	    
+	    
+	    
+	    setFixedCellWidth(calculateWidth());
 	    //setFixedCellHeight( table.getRowHeight() + table.getRowMargin() );
 	    setFixedCellHeight( table.getRowHeight());
 	    setCellRenderer( createRowHeaderRender() );
@@ -87,6 +96,23 @@ public class ZRowHeader extends JList {
 	    		rowClicked();
 	    	}
 	    });
+	}
+
+	//TODO: to calculate the header length
+	private int calculateWidth() {
+		int width = 60;
+	    /*if( rowHeaders != null ) {
+	    	for( int i = 0; i < rowHeaders.length; i++ ) {
+	    		if( rowHeaders[i] == null ) {
+	    			continue;
+	    		}
+	    		int w = getFontMetrics(getFont()).stringWidth(rowHeaders[i].toString()) ;
+	    		if( w > width ) {
+	    			width = w;
+	    		}
+	    	}
+	    }*/
+	    return width;
 	}
 
 	protected ListCellRenderer createRowHeaderRender() {
@@ -111,8 +137,11 @@ public class ZRowHeader extends JList {
 
 	protected void rowClicked() {		
 		int row = getSelectedIndex();
-		boolean select =  State.ALL.equals(newState(row)) ? true : false;		
-		tableSelector.getModel().rowSelect(row, select );			
+		ISelectionPolicy policy = tableSelector.getSelectionPolicy();
+		if( policy != null && policy.isSelectEnable(tableSelector, row, ZModel.COLUMN_HEADER_ID ) ) {
+			boolean select =  State.ALL.equals(newState(row)) ? true : false;		
+			tableSelector.getModel().rowSelect(row, select );	
+		}
 	}
 
 	private class RowHeaderRenderer extends JCheckBox implements ListCellRenderer {
@@ -127,29 +156,34 @@ public class ZRowHeader extends JList {
 		public Component getListCellRendererComponent(JList list, Object value,
 				int index, boolean isSelected, boolean cellHasFocus) {
 			
-			State state = tableSelector.getModel().getRowState(index);			
+			ISelectionPolicy policy = tableSelector.getSelectionPolicy();
+			if( policy != null && policy.isSelectEnable(tableSelector, index, ZModel.COLUMN_HEADER_ID ) ) {
+				State state = tableSelector.getModel().getRowState(index);			
 
-			JTableHeader header = table.getTableHeader();
-			setForeground(header.getForeground());
-			if( State.PART.equals(state) ) {
-				setBackground(Color.LIGHT_GRAY );
-			} else {
-				setBackground(header.getBackground());
+				JTableHeader header = table.getTableHeader();
+				setForeground(header.getForeground());
+				if( State.PART.equals(state) ) {
+					setBackground(Color.LIGHT_GRAY );
+				} else {
+					setBackground(header.getBackground());
+				}
+				setFont(header.getFont());			
+				setOpaque(true);
+				setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+				setHorizontalAlignment(LEFT);			
+				setBorderPainted(true);
+				
+				String title = (value == null) ? "" : value.toString(); 
+				setText( title );
+				setToolTipText(title);
+				
+				setSelected( !state.equals(State.NONE) );
+				
+				
+				return this;
 			}
-			setFont(header.getFont());			
-			setOpaque(true);
-			setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-			setHorizontalAlignment(CENTER);			
-			setBorderPainted(true);
+			return new JLabel( "" );
 			
-			String title = (value == null) ? "" : value.toString(); 
-			setText( title );
-			setToolTipText(title);
-			
-			setSelected( !state.equals(State.NONE) );
-			
-			
-			return this;
 		}
 
 	}

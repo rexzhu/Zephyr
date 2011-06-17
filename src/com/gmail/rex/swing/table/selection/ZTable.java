@@ -33,6 +33,8 @@ public class ZTable extends JPanel implements TableModelListener {
 			
 			this.table = aTable;			
 			this.model = new ZModel(this);
+			
+			setSelectionPolicy( createDefaultSelectionPolicy() );
 			this.table.getModel().addTableModelListener(this);
 
 
@@ -137,10 +139,11 @@ public class ZTable extends JPanel implements TableModelListener {
 				int rowCount = table.getRowCount();
 				Object[] rh = new Object[rowCount];
 				for( int x = 0; x < rowCount; x++ ) {
-					rh[x] = new Integer(x);
+					rh[x] = new Integer(x+1);
 				}
 				return rh;
 			}
+
 		};
 		
 	}
@@ -159,6 +162,25 @@ public class ZTable extends JPanel implements TableModelListener {
 	public void addSelectionListner( IModelListener lsn ) {
 		getModel().addModelListener(lsn);
 	}
+
+	//TODO: selection policy to determine the check-box available on a specific cell.
+
+	
+	public void setSelectionPolicy(ISelectionPolicy selectionPolicy) {
+		this.selectionPolicy = selectionPolicy;
+	}
+	
+	
+	public ISelectionPolicy getSelectionPolicy() {
+		return selectionPolicy;
+	}
+
+	protected ISelectionPolicy createDefaultSelectionPolicy() {
+		return new ZSelectionPolicy();
+	}
+
+	private ISelectionPolicy selectionPolicy;
+	
 
 
 }
