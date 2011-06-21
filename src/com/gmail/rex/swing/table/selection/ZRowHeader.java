@@ -182,7 +182,7 @@ public class ZRowHeader extends JList {
 				
 				return this;
 			}
-			return new JLabel( "" );
+			return new JLabel( value.toString() );
 			
 		}
 
