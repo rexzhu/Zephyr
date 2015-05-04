@@ -1,28 +1,28 @@
-# Site settings
-title: Freshman
-tagline: Freshman like Fish
-author: Lijia YU
-email: yu@lijiayu.net
-  # this means to ignore newlines until "baseurl:"
-  # Write an awesome description for your new site here. You can edit this
-  # line in _config.yml. It will appear in your document head meta (for
-  # Google search results) and in your feed.xml site description.
-description: "Freshman is a jekyll blog theme"
-keywords: "Jekyll, Freshman, theme"
-baseurl: "/freshman" # the subpath of your site, e.g. /blog/
-url: "http://yulijia.net/freshman" # the base hostname & protocol for your site
-twitter_username: yulijia
-github_username:  yulijia
-disqus_shortname: freshmantheme
-favicon:     "images/favicon.ico"
-#touch_icon:  "img/apple-touch-icon.png"
-#google_analytics_key: UA-49607422-1 ## put YOUR key here to enable tracking! (blank to disable)
+### Site info:
+title: Omnivoew
+tagline: Omnivore
+author: Rex Zhu
+email: rex.zhu@gmail.com
+description: "It's Rex personal website." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
+keywords: "Blog, Java, Cloud, IoT, Internet, Management"
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "http://leizhu.info/" # the base hostname & protocol for your site
+locale: en_US
 
-aboutme: Hi, this is Lijia Yu. I am a scientist.
-aboutme_photo: https://i.imgur.com/15BT1.jpg
+### Personal info and site tools info:
+twitter_username: rexzhu
+github_username:  rexzhu
+disqus_shortname: rexzhu
+favicon:     "/images/favicon.ico"
+# these are shown on aboutme-sidebar.
+aboutme: Hi, this is Rex Zhu.
+
+aboutme_photo: images/ME.jpg # your photo.
 
 
-
+### Site setting:
+ShowContactInfo: "True" # Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown when ShowContactInfo == True
+default_column: "two" # blog style: two columns, if default_column != "two", you will see a one column blog.
 default_locale: "en" # blog sidebar language set, only include: English(en) and Chinese (cn)
 
 locales:
@@ -36,9 +36,9 @@ locales:
       Tags: "Tags"
       Previous: "Older"
       Next: "Newer"
-      PostedInCategories: "//"
-      Taggedwith: "//"
-      PostDate: "// "
+      PostedInCategories: "Posted in"
+      Taggedwith: "and tagged"  
+      PostDate: "on "
     cn:
       Aboutme: "关于我"
       Archives: "存档"
@@ -54,15 +54,16 @@ locales:
       PostDate: "| 发表时间: "
 
 
-Blogroll:
-    - name: Freshman21
-      href: http://yulijia.net/freshman21
-      title: Another Jekyll blog theme
-    - name: author's website
-      href: http://yulijia.net/
-      title: Lijia Yu's website
+### your Blogroll info, only name can shown on the page.
 
-# Build setting
+Blogroll:
+    - name: Rex
+      href: http://leizhu.info
+      title: Rex's website
+
+
+
+### Build settings
 markdown: kramdown
 highlighter: pygments
 paginate: 5

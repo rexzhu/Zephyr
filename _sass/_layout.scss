@@ -4,44 +4,123 @@
 .site-header {
   //Positioning context for the mobile navigation icon
   position: relative;
-  span { vertical-align: baseline; }
 }
 
 .site-title {
-  font-size: $base-font-size*2;
-  line-height: 40px;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
   margin-bottom: 0;
-  display:inline;
+  text-align:center;
   a{
     &,
     &:visited
     &:hover {
-      color: $brand-color; //$grey-color-dark
+      color: $brand-top-color; //$grey-color-dark
+      border-bottom: 1px dotted;
       text-decoration: none;
     }
   }
 }
 
 .site-meta{
-  font-size: $base-font-size;
-  display:inline;
-  line-height:30px;
+  font-size: 20px;
+  line-height:56px;
+  letter-spacing: -1px;
   margin-bottom: 0;
-  padding-left: 5px;
+  text-align:center; 
   color: $grey-color;
 }
 
 .site-nav {
+  /*float: right;*/
+  line-height: 56px;
+  border-top: 1px solid $grey-color-light;
+  border-bottom: 1px solid $grey-color-light;
   .menu-icon {
     display: none;
   }
 
   .page-link {
+    color: $grey-color;
     line-height: $base-line-height;
-    margin: 0px 5px;
+
+    // Gaps between nav items, but not on the first one
+
+    margin-left: 10px;
+    margin-right: 10px;
+
   }
-  border-bottom: 1px dotted;
-  color: $grey-color;
+
+  a{
+    text-decoration: none;
+
+    &:hover {
+      color: $text-color;
+      text-decoration: none;
+      //font-weight: bold;
+    }
+  }
+
+
+  @include media-query($on-palm) {
+    position: relative;
+    background-color: $background-color;
+    border: 1px solid $grey-color-light;
+    border-radius: 5px;
+    text-align: center;
+
+    .menu-icon {
+      display: block;
+      line-height: 0;
+      text-align: center;
+
+      > svg {
+        width: 18px;
+        height: 30px;
+
+        path {
+          fill: $grey-color-dark;
+        }
+      }
+    }
+
+    .trigger {
+      clear: both;
+      display: none;
+    }
+
+    &:hover .trigger {
+      display: block;
+      padding-bottom: 5px;
+    }
+
+    .page-link {
+      display: block;
+      padding: 5px 10px;
+    }
+  }
+
+}
+
+
+/**
+ * Sidebar
+ */
+
+.sidebar-module {
+  padding: 15px;
+  margin: 0 -15px 15px;
+  font-size: 14px;
+  h4{
+    font-size: $base-font-size;
+    font-weight: bold;
+    color: $grey-color-dark;
+  }
+  li{
+    list-style: none; 
+  }
+
 }
 
 
@@ -51,11 +130,12 @@
 
 .site-footer {
   clear: both;
-  text-align: right;
+  text-align: center;
+  background-color: #f9f9f9;
   border-top: 1px solid $grey-color-light;
-  margin: $spacing-unit/2 0; 
-  padding: $spacing-unit/2 0;
-  font-size: $small-font-size;
+  margin: $spacing-unit 0; 
+  padding: $spacing-unit 0;
+  font-size: 14px;
 }
 
 
@@ -64,25 +144,14 @@
  * Page content
  */
 .page-content {
-  padding:10px 0;
+  padding: $spacing-unit 0;
   strong { font-weight: bold; }
-}
 
+}
 
 .page-heading {
-  font-size: $base-font-size*2;
+  font-size: 20px;
 }
-
-
-.post-list {
-  margin-left: 0px;
-  list-style: none;
-
-  > li {
-    margin-bottom: $spacing-unit;
-  }
-}
-
 
 .post-meta {
   font-size: $small-font-size;
@@ -91,7 +160,7 @@
 
 .post-link {
   display: block;
-  font-size: $base-font-size;
+  font-size: 38px;//42px;
 }
 
 
@@ -99,56 +168,84 @@
 /**
  * Posts
  */
-
 .post-header {
   margin-bottom: $spacing-unit;
-}
+  time{
+      margin-left: 0px;
+      font-style: normal;
 
-.post-title {
-  font-size: $base-font-size*2;
-  letter-spacing: -1px;
-  line-height: 1;
-  color: $brand-color;
-  @include media-query($on-laptop) {
-    font-size: $base-font-size*1.8;
   }
 }
 
-.post-content {
+.post-title {
+  font-size: 38px;//42px;
+  letter-spacing: -1px;
+  line-height: 1;
 
-  //margin-bottom: $spacing-unit/2;
+  @include media-query($on-laptop) {
+    font-size: 36px;
+  }
+}
+
+
+
+#markdown-toc{
+  float: right;
+  width:50%;
+  background:#f4f7f8;
+  padding:20px 15px;
+  li{
+    padding-top:10px;
+    position:relative; 
+    list-style-type:none;  
+  }
+}
+
+#markdown-toc:before{
+  content:"Table of Contents";
+  font-weight: 700;
+  padding-left:10px;
+  border-bottom:5px solid $grey-color-light !important;
+  display:block;
+  font-size:18px
+}
+
+
+
+.post-content {
+  p { padding:$spacing-unit/5 0; } 
+  //margin-bottom: $spacing-unit;
   h1 { 
-    font-size:  $base-font-size*2;
+    font-size: 38px;
     line-height:1em;
     @include media-query($on-laptop){
-      font-size:  $base-font-size*1.8;
+      font-size: 36px;
     }
 
   }
   h2 {
-    font-size:  $base-font-size*1.75;
+    font-size: 32px;
     line-height:1em;
-
     @include media-query($on-laptop) {
-      font-size:  $base-font-size*1.6;
+      font-size: 28px;
     }
   }
 
   h3 {
-    font-size:  $base-font-size*1.5;
+    font-size: 26px;
     line-height:1em;
 
     @include media-query($on-laptop) {
-      font-size:  $base-font-size*1.3;
+      font-size: 22px;
     }
   }
 
   h4 {
-    font-size:  $base-font-size*1.25;
+    font-size: 20px;
     line-height:1em;
 
     @include media-query($on-laptop) {
-      font-size:  $base-font-size*1.1;
+      font-size: 18px;
     }
   }
 }
@@ -159,9 +256,9 @@
  */
 
 .pager{
-  //margin-bottom: 40px;
+  margin-bottom: 60px;
   text-align: center;
-  ul { display: block; margin: 10px 0; }
+  ul { display: block; margin: 20px 0; }
   li{list-style: none;}
   li.previous a{float:left;}
   li.next a{float:right;}
@@ -223,68 +320,5 @@ q:after {
   content:'』';
   color: #DD1144;
   font-weight:bold;
-}
-
-
-/**
- * Only used for me
- */
-
-::selection {
-  background:#669900; 
-  color: #fff; 
-  text-shadow: none;
-}
-
-::-moz-selection {
-  background:#669900; 
-  color: #fff; 
-  text-shadow: none;
-}
-
-::-webkit-selection {
-  background:#669900; 
-  color: #fff; 
-  text-shadow: none;
-}
-
-
-/**
- * I didn't need those anchor now, but I leave them there
- */
-
-div.label-anchor {
-  float: left;
-  width: 0;
-}
-
-a.label-anchor {
-  position: relative;
-  display: block;
-  text-align: right;
-  left: -60px;
-  top: -25px;
-  padding-top: 30px;
-  font-family: 'PT Sans', sans-serif;
-}
-a.label-anchor:target span {
-  background-color: #b94a48;
-}
-a.label-anchor:hover {
-  text-decoration: none;
-}
-a.label-anchor span {
-  font-size: 1em;
-  font-weight: bold;
-  line-height: 14px;
-  color: #ffffff;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  white-space: nowrap;
-  vertical-align: baseline;
-  background-color: #666;
-  padding: 1px 4px 2px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
 }
 
