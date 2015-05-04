@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-	<html>
-	<head>
-	　<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	　<title>{{page.title}}</title>
-	</head>
-	<body>
-	　{{content }}
-	</body>
-	</html>
+<html>
+
+{% include head.html %}
+
+<body>
+
+<div class="container">
+ <div class="wrapper">
+  {% include header.html %}
+
+  <div class="page-content">
+      {{ content }}
+  </div>
+  
+  {% include post_pagination.html %}
+  {% include footer.html %}
+
+</div>
+</div>
+</body>
+
+</html>
