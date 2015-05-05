@@ -1,6 +1,6 @@
 ### Site info:
 title: 围栏
-tagline: cast ME as Omnivore
+tagline: cast ME as omnivore
 author: Rex Zhu
 email: rex.zhu@gmail.com
 description: "It's Rex personal website." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
@@ -10,14 +10,14 @@ url: "http://leizhu.info" # the base hostname & protocol for your site
 locale: en_US
 
 ### Personal info and site tools info:
-twitter_username: rexzhu
-github_username:  rexzhu
+twitter_username:
+github_username:
 disqus_shortname: rexzhu
 favicon:     "/images/favicon.ico"
 # these are shown on aboutme-sidebar.
 aboutme: Hi, this is Rex Zhu.
 
-aboutme_photo: images/ME.jpg # your photo.
+aboutme_photo: /images/ME.jpg # your photo.
 
 
 ### Site setting:
