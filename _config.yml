@@ -1,12 +1,12 @@
 ### Site info:
 title: 围栏
-tagline: Omnivore
+tagline: cast ME as Omnivore
 author: Rex Zhu
 email: rex.zhu@gmail.com
 description: "It's Rex personal website." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
 keywords: "Blog, Java, Cloud, IoT, Internet, Management"
-baseurl: "/" # the subpath of your site, e.g. /blog
-url: "http://leizhu.info/" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://leizhu.info" # the base hostname & protocol for your site
 locale: en_US
 
 ### Personal info and site tools info:
